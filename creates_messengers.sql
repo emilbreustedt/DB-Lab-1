@@ -7,7 +7,7 @@ id int(4) NOT NULL,
 latitude float DEFAULT NULL,
 longitude float DEFAULT NULL,
 adress varchar(255) DEFAULT NULL,
-constraint pk_office primary key (id) # when constraint and when just primary key ()
+constraint pk_office primary key (id)
 )ENGINE = InnoDB Default Charset = utf8 COLLATE = utf8_unicode_ci;
 
 CREATE TABLE driver (
@@ -37,8 +37,8 @@ constraint fk_vehicle_type FOREIGN KEY(type_id) REFERENCES type(id)
 
 CREATE TABLE category (
 id int(4) NOT NULL,
-name varchar(255) DEFAULT NULL,
-parent_category_id int(4) NOT NULL,
+name varchar(255) NOT NULL,
+parent_category_id int(4) DEFAULT NULL,
 constraint pk_category primary key(id)
 )ENGINE = InnoDB Default Charset = utf8 COLLATE = utf8_unicode_ci;
 
