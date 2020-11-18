@@ -36,11 +36,12 @@ SELECT name FROM customer WHERE id IN
 # 6) (5 points) Display the identifier and the address of the office closest to a customer with
 # "Restaurant" as a name. Also display what is the distance between them.
 
-SELECT o.id, o.adress, s.distance FROM o.id, o.adress, MIN(s.distance) FROM serve s, office o WHERE o.id = s.office_id AND s.customer_id in
-SELECT MIN(distance) FROM serve
-(SELECT id FROM customer WHERE category_id in
+SELECT o.id, o.adress, s.distance
+FROM office o, serve s 
+WHERE o.id = s.office_id and s.customer_id in 
+(SELECT id FROM customer WHERE category_id in 
 (SELECT id FROM category WHERE name = "Restaurant"))
-GROUP BY o.id;
+ORDER BY s.distance LIMIT 1;
 
 /*
 7) (10 points) Display a list of drivers that can drive more than 3 types of vehicles. The list
