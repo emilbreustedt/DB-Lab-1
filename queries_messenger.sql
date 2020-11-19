@@ -2,30 +2,30 @@ USE messengers;
 
 # 1) (5 points) Display the name of the customers that belong to the "Farmàcia" category.
 # Sort your results ordered by name (ascending or descending).
-SELECT name FROM customer WHERE category_id in (
-Select id FROM category WHERE name = "Farmàcia");
+SELECT name FROM customer WHERE category_id IN (
+SELECT id FROM category WHERE name = "Farmàcia");
 
 #2) (5 points) Display a list with the categories (name) and its parent category (name),
 #where the parent category is "Tecnologia" or "Llibreria".
-select parent.name as parent_name, child.name as child_name
-from category child
-  inner join category parent
-    on parent.id = child.parent_category_id 
-    and parent.id in
-(Select id FROM category WHERE name = "Tecnologia" or name = "Llibreria");
+SELECT parent.name AS parent_name, child.name AS child_name
+FROM category child
+   JOIN category parent
+    ON parent.id = child.parent_category_id 
+    AND parent.id IN
+(SELECT id FROM category WHERE name IN ("Tecnologia", "Llibreria"));
 
 #3) (5 points) Select the name and distance between customers and offices, where the
 #office is identified with "10" and the distance is greater than 1000. Sort results by
 #distance in ascending order.
-SELECT c.name, s.distance from customer c, office o, serve s
-where c.id = s.customer_id and o.id = s.office_id and s.distance > 1000 and o.id = 10
-ORDER BY s.distance asc;
+SELECT c.name, s.distance FROM customer c, office o, serve s
+WHERE c.id = s.customer_id AND o.id = s.office_id AND s.distance > 1000 AND o.id = 10
+ORDER BY s.distance ASC;
 
 # 4) (5 points) Select the name of the types of vehicles existing in the database and indicate
 # how many vehicles of each type there are. Sort results by number of vehicles in
 # descending order.
-SELECT t.name, (SELECT count(*) as num FROM vehicle v WHERE t.id = v.type_id)
-FROM type t ORDER BY (SELECT count(*) AS num FROM vehicle v WHERE t.id = v.type_id) desc;
+SELECT t.name, (SELECT count(*) AS num FROM vehicle v WHERE t.id = v.type_id)
+FROM type t ORDER BY (SELECT count(*) AS num FROM vehicle v WHERE t.id = v.type_id) DESC;
 
 # 5) (5 points) Select the customers that can be delivered by the driver identified with the
 # code "10".
@@ -38,8 +38,8 @@ SELECT name FROM customer WHERE id IN
 
 SELECT o.id, o.adress, s.distance
 FROM office o, serve s 
-WHERE o.id = s.office_id and s.customer_id in 
-(SELECT id FROM customer WHERE category_id in 
+WHERE o.id = s.office_id AND s.customer_id IN 
+(SELECT id FROM customer WHERE category_id IN 
 (SELECT id FROM category WHERE name = "Restaurant"))
 ORDER BY s.distance LIMIT 1;
 
