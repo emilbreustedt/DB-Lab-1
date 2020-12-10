@@ -33,7 +33,7 @@ constraint pk_belong primary key(user_id , group_id)
 CREATE TABLE message (
 msg_id int(4) NOT NULL,
 user_id int(4) NOT NULL,
-date_time datetime  NOT NULL,
+date_time varchar(20) NOT NULL,
 message varchar(140) NOT NULL,
 constraint pk_message primary key(msg_id),
 constraint fk_message_userid FOREIGN KEY(user_id) REFERENCES user(user_id)
